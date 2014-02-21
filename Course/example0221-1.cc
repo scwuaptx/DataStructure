@@ -1,5 +1,4 @@
 #include <iostream>
-
 #include <vector>
 #include <deque>
 #include <list>
@@ -13,7 +12,7 @@ void print_items( T start , T end){
 	return ;
 }
 
-template <	class InputIter , class T >
+template <	class InputIter , class T > //search template
 InputIter find( InputIter start , InputIter end , const T& val ) {
 	while ( start != end && *start != val )
 		++start ;
@@ -21,11 +20,18 @@ InputIter find( InputIter start , InputIter end , const T& val ) {
 }
 
 template < class T >
-struct Square {
+struct Square {	
 	T operator() ( const T& a ) const {
 		return a * a ;
 	}
 };
+
+template < class S , class T >
+void print_items2 (S start, S end , T fn) {
+	for(S i = start ; i != end ; ++i )
+		cout << fn(*i) << ' ' ;	         //class T is a struct , for example fn can be replace by Squeare
+	cout << endl ;
+} ;
 
 int main(){
 
@@ -96,6 +102,10 @@ int main(){
 	cout << s(2) << endl;	//print the value of s
 	cout << s.operator()(2) << endl ;
 	cout << Square<int>()(2) << endl ;	//Squaer<int>() can replace s, and need not create the object
+
+/*--------------------------------------------------------------*/
+	vector <int> g(3,2) ;
+	print_items2( g.begin() , g.end() , Square<int>() ) ;	//print 4 4 4 4
 
 	return 0 ;
 }
