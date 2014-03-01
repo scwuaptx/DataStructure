@@ -1,6 +1,6 @@
 Homework1
----------
-	There are some code
+=========
+	There are some code :
     ``int n = 4;
     string line , word ;
     istringstream istr ;
