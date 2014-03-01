@@ -1,6 +1,6 @@
 Homework1
 ---------
-	There are some code :
+	There are some code
     ``int n = 4;
     string line , word ;
     istringstream istr ;
@@ -15,6 +15,6 @@ Homework1
         //Print the string that the size of the string greater than n in the string list.
         print_words( strs.begin() , strs.end() , WordSize(n) ) ;
         strs.clear() ;
-    } while(1);``
+    } while(1)``;
 	Please design the algorithm named print_words() and the functor class named WordSize()
 	
