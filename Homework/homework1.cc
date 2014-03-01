@@ -9,7 +9,7 @@ class WordSize {	//The class of WordSize.
 	private :
 		int num ;
 	public :
-		WordSize(const int& n = 0) : num(n) {}		//Constructor
+		WordSize( const int& n = 0 ) : num(n) {}		//Constructor
 		//If the size of str inputed by the user greater than numi, than return ture.
 		bool operator() ( const string& str ) const {	
 			return str.size() >= num ;						
@@ -17,10 +17,10 @@ class WordSize {	//The class of WordSize.
 };
 
 template < class S , class T >
-void print_words(S start , S end , T WordSize){
+void print_words( S start , S end , T WordSize ){
 		for ( S i = start ; i != end ; ++i){
 			//If the size of input is greater than num, than print the string
-			if(WordSize(*i))
+			if( WordSize(*i) )
 				cout << *i << ' ';
 		}
 		return ;
@@ -42,7 +42,7 @@ int main(void){
 		//Print the string that the size of the string greater than n in the string list.
 		print_words( strs.begin() , strs.end() , WordSize(n) ) ;
 		strs.clear() ;
-	} while(1);
+	} while( 1 );
 
 
 }
