@@ -1,3 +1,11 @@
+/*
+學號 : 992001525
+系級 : 數4B
+姓名 : 楊安傑
+第_次作業 : 1
+編譯環境 : g++ on ubuntu 12.04 LTS
+聯絡信箱 : scwuaptx@gmail.com
+*/
 #include <iostream>
 #include <vector>
 #include <sstream>
