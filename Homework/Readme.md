@@ -62,12 +62,12 @@ There are some code :
 Please complete the block and not use vector, deque and array.
 Let it can print out a pascal triangle.
 
-Ex: 
+Ex:
 input
- 4
+	4
 
 output
- 1
- 1   1
- 1   2   1
- 1   3   3   1
+	1
+	1   1
+	1   2   1
+	1   3   3   1
