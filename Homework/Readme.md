@@ -64,10 +64,12 @@ Let it can print out a pascal triangle.
 
 Ex:
 input :
-    4
+
+	4
 
 output :
-    1
-    1   1
-    1   2   1
-    1   3   3   1
+
+	1
+	1   1
+	1   2   1
+	1   3   3   1
