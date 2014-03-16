@@ -17,4 +17,47 @@ Homework1
 		strs.clear() ;
 		} while(1);</code>
 Please design the algorithm named print_words() and the functor class named WordSize()
+
+Homework2
+---------
+There are some code :
 	
+	#include <iostream>
+	#include <list>
+	#include <iomanip>
+
+	using namespace std ;
+	
+	class  Pascal {
+		private :
+			list< list<int> >  num ;
+
+		public :
+			Pascal( int n = 0 ) {
+		// complete the block
+		...
+		}
+	friend ostream& operator<<( ostream& out , const Pascal& foo ) {
+		// complete the block
+		...
+		}
+	};
+
+	int main() {
+
+    int  n ;
+    Pascal  pascal ;
+
+    while ( 1 ) {
+        cout << "> " ;
+        cin >> n ;
+        pascal = Pascal(n) ;
+        cout << pascal << endl ;
+    }
+
+    return 0 ;
+
+	}
+
+Please complete the block and not use vector, deque and array.
+Let it can print out a pascal triangle.
