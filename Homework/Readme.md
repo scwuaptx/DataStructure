@@ -1,7 +1,7 @@
 Homework1
 ---------
-	There are some code :
-	<code>int n = 4;
+There are some code :
+	int n = 4;
 	string line , word ;
 	istringstream istr ;
 	vector<string> strs ;
@@ -15,7 +15,7 @@ Homework1
 		//Print the string that the size of the string greater than n in the string list.
 		print_words( strs.begin() , strs.end() , WordSize(n) ) ;
 		strs.clear() ;
-		} while(1);</code>
+		} while(1);
 Please design the algorithm named print_words() and the functor class named WordSize()
 
 Homework2
@@ -61,3 +61,13 @@ There are some code :
 
 Please complete the block and not use vector, deque and array.
 Let it can print out a pascal triangle.
+
+Ex: 
+input
+ > 4
+
+output
+   1
+   1   1
+   1   2   1
+   1   3   3   1
