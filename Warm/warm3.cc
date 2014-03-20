@@ -44,6 +44,7 @@ int main(void){
 	multimap<int,int> WordtoStroke ;
 	multimap<int,int> SumtoStroke ;
 
+/*Read the Data*/
 	while ( getline(infile,line) ) {
 		istring.str(line) ;
 		istring >> word ;
@@ -64,6 +65,7 @@ int main(void){
 	multimap<int,int>::reverse_iterator riter ;
 	pair<mmiter,mmiter> piter ;
 
+/*Print the chinese word of every strokes*/
 	int i,j,value,sum;
 	for ( i = 1 ; i <= 30 ; ++i) {
 		wcout <<  i << L" 劃 :" << StroketoWord.count(i) << endl ; 
@@ -80,6 +82,7 @@ int main(void){
 		SumtoStroke.insert(make_pair(StroketoWord.count(i),i)) ;
 	}
 
+/*Sort with strokes*/
 	for  ( riter = SumtoStroke.rbegin() ; riter != SumtoStroke.rend() ; ++riter ){	
 		wcout << setw(4) << riter->second  << L" 畫 : " <<  setw(4) <<riter->first << L" 個" << endl ;	
 	}
