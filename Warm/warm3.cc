@@ -3,8 +3,11 @@
 #include <string>
 #include <sstream>
 #include <map>
+#include <iomanip>
 using namespace std ;
 
+
+/*Hex String to int*/
 int UStrtoInt(string s){
 	stringstream ss(s) ;
 	string n ;
@@ -19,6 +22,7 @@ int UStrtoInt(string s){
 	return k ;
 }
 
+/*String to int*/
 int StrtoInt(string s){
 	stringstream ss ;
 	int k ;
@@ -77,7 +81,7 @@ int main(void){
 	}
 
 	for  ( riter = SumtoStroke.rbegin() ; riter != SumtoStroke.rend() ; ++riter ){	
-		wcout << riter->second  << L" : " << riter->first << endl ;	
+		wcout << setw(4) << riter->second  << L" 畫 : " <<  setw(4) <<riter->first << L" 個" << endl ;	
 	}
 
 	return 0 ;
