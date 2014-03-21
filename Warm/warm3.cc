@@ -6,6 +6,12 @@
 #include <iomanip>
 using namespace std ;
 
+struct Larger{
+	bool operator() (const int& a ,const int& b){
+		return a > b ;
+	}
+
+};
 
 /*Hex String to int*/
 int UStrtoInt(string s){
@@ -42,7 +48,7 @@ int main(void){
 
 	multimap<int,int> StroketoWord ;
 	multimap<int,int> WordtoStroke ;
-	multimap<int,int> SumtoStroke ;
+	multimap<int,int,Larger> SumtoStroke ;
 
 /*Read the Data*/
 	while ( getline(infile,line) ) {
@@ -62,7 +68,7 @@ int main(void){
 	
 	typedef multimap<int,int>::iterator mmiter;
 	mmiter iter ;
-	multimap<int,int>::reverse_iterator riter ;
+	multimap<int,int>::iterator iterr ;
 	pair<mmiter,mmiter> piter ;
 
 /*Print the chinese word of every strokes*/
@@ -83,8 +89,8 @@ int main(void){
 	}
 
 /*Sort with strokes*/
-	for  ( riter = SumtoStroke.rbegin() ; riter != SumtoStroke.rend() ; ++riter ){	
-		wcout << setw(4) << riter->second  << L" 畫 : " <<  setw(4) <<riter->first << L" 個" << endl ;	
+	for  ( iterr = SumtoStroke.begin() ; iterr != SumtoStroke.end() ; ++iterr ){	
+		wcout << setw(4) << iterr ->second  << L" 畫 : " <<  setw(4) << iterr->first << L" 個" << endl ;	
 	}
 
 	return 0 ;
