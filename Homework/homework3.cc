@@ -15,6 +15,7 @@ int main(void){
 	infile.imbue(utf8) ;
 	wstring line ;
 	int i , UniofWord , Space = 20;
+	map<int,bool> flag ; //Create a flag map to check whether printed
 	map<int,int> word ;  //Create a unicode to number map
 
 	while( getline(infile,line) ) {
@@ -29,11 +30,20 @@ int main(void){
 		//if the Chinese word has been appear greater two times , then print the Chinese word and times.
 		for ( i = 0 ; i < line.size() ; ++i ){
 			UniofWord = *reinterpret_cast<int*>(&line[i]) ;
-			if( UniofWord!= 12290 && UniofWord!= 65292 && UniofWord!= 65218 )  //skip "。" "，" "！"
+			if( UniofWord!= 12290 && UniofWord!= 65292 && UniofWord!= 65218 ){  //skip "。" "，" "！"
 				word[UniofWord] += 1 ;
-			if( word[UniofWord] >= 2)
+				flag[UniofWord] = true ;
+			}
+		}
+		
+
+		for ( i = 0 ; i < line.size() ; ++i ){
+			UniofWord = *reinterpret_cast<int*>(&line[i]) ;
+			if( word[UniofWord] >= 2 && flag[UniofWord] ){
 				wcout  << *reinterpret_cast<wchar_t*>(&UniofWord) << L"[" << word[UniofWord] << L"]" ;
-		}	
+				flag[UniofWord] = false ;
+			}
+		}
 		wcout << endl ;
 	}
 
