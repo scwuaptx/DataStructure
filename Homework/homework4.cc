@@ -34,8 +34,8 @@ int main(void){
 	//Find the intersection of the sets.
 	for( i = 1 ; i < PoemList.size()  ; ++ i ){
 		set_intersection(intersection.begin(), intersection.end(), 
-						PoemList[i].begin(), PoemList[i].end(),
-						inserter(temp,temp.begin())) ;
+				PoemList[i].begin(), PoemList[i].end(),
+				inserter(temp,temp.begin())) ;
 		intersection = temp ;
 		temp.clear() ;
 	}
