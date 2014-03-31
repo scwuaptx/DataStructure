@@ -17,12 +17,12 @@ int main(void){
 	wstring line ;
 	int i ;
 	vector< set<wchar_t> > PoemList ;  //Create a list to save poem set
-	set<wchar_t>  PoemSet , intersection ,temp;  //Create a a set to save the word of poem
+	set<wchar_t>  PoemSet , intersection , temp;  //Create a a set to save the word of poem
 	
 	//Save every poem in sets.
 	while( getline(infile,line) ){
 		for( i = 0 ; i < line.size() ; ++i ){
-			if( line[i] != L'。' && line[i] !=  L'，')
+			if( line[i] != L'。' && line[i] !=  L'，' )
 				PoemSet.insert(line[i]) ; 
 		}
 		PoemList.push_back(PoemSet) ;
@@ -33,7 +33,9 @@ int main(void){
 	
 	//Find the intersection of the sets.
 	for( i = 1 ; i < PoemList.size()  ; ++ i ){
-		set_intersection(intersection.begin(), intersection.end(), PoemList[i].begin(), PoemList[i].end(),inserter(temp,temp.begin())) ;
+		set_intersection(intersection.begin(), intersection.end(), 
+						PoemList[i].begin(), PoemList[i].end(),
+						inserter(temp,temp.begin())) ;
 		intersection = temp ;
 		temp.clear() ;
 	}
