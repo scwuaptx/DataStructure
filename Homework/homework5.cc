@@ -8,9 +8,9 @@ class Pascal{
 		int **p ;
 		int size ;
 	public :
-
+		//Constructor
 		Pascal() : p(NULL) , size(0) {}
-
+		//Create n rows of Pascal triangle
 		Pascal( int n ) : size(n){
 			p = new int*[n] ;
 			int i , j ;
@@ -25,7 +25,7 @@ class Pascal{
 				}
 			}
 		}
-
+		//copy constructor
 		Pascal( const Pascal& foo ){
 			size = foo.size ;
 			p = new int*[size] ;
@@ -39,7 +39,7 @@ class Pascal{
 			}
 
 		}
-		
+		//reset the pascal object
 		void reset( int n ){
 			int i,j ;
 			if ( size > 0 ){
@@ -62,7 +62,7 @@ class Pascal{
 			}
 
 		}
-		
+		//assign oprator
 		Pascal& operator= ( const Pascal& foo ){
 			if( this == &foo ) return *this ;
 			int i, j ;
@@ -81,14 +81,14 @@ class Pascal{
 				}
 			}
 		}
-
+		//Destructor
 		~Pascal() {
 			if ( size > 0 ){
 				for( int i = 0 ; i < size ; ++i ) delete [] p[i] ;
 				delete [] p ;
 			}
 		}
-		
+		//output operator
 		friend ostream& operator<< ( ostream& ostr , const Pascal& foo ){
 			int i , j , s ;
 			s = 4 ;
