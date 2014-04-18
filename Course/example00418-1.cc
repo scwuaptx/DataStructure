@@ -1,5 +1,6 @@
 /*linked list*/
 #include <iostream>
+#include <cassert>
 
 using namespace std ;
 
@@ -39,7 +40,16 @@ class List {
 		//constructor 
 		List() : head(NULL), tail(NULL) , osize(0) {}
 
+		List( const List<T>& foo ): head(NULL),tail(NULL) , osize(0) {
+			const Node<T> *ptr ;
+			for( ptr = foo.begin() ; ptr != foo.end() ; ptr= ptr->fptr )
+				push_back( ptr->data ) ;
+		}
+
+		
+
 		const Node<T>* begin() const { return head ;}
+		Node<T>* begin() {return head ;}
 		Node<T>* end() const { return NULL ;}
 
 		void push_back( const T& no){
@@ -91,6 +101,62 @@ class List {
 			}
 			-- osize ;
 		}
+		
+		Node<T>* insert( Node<T>* cptr , const T& no ){
+			if ( osize == 1 ) {
+				assert( cptr == head ) ;
+				push_front(no) ;
+				return head ;
+			}else if ( osize >= 2 ){
+				Node<T> *nptr = make_node(no) ;
+				nptr->bptr = cptr->bptr ;
+				nptr->fptr = cptr ;
+				nptr->bptr->fptr = nptr ;
+				cptr->bptr = nptr ;
+				++osize ;
+				return nptr ;
+			}else {
+				NULL ;
+			}
+		}
+
+		void erase( Node<T>* cptr ){
+			if ( osize == 1 ){
+				asser(cptr == head) ;
+				pop_back() ;
+			}else if( osize == 2 ){
+				if(cptr == head ){
+					pop_front();
+				}else if( cptr == tail ){
+					pop_back() ;
+				}else{
+					NULL ;
+				}
+			}else{
+				cptr->bptr->fptr = cptr->fptr ;
+				cptr->fptr->bptr = cptr->bptr ;
+				delete cptr ;
+				--osize ;
+			}
+		}
+
+		Node<T>* find( const T& no ) const {
+			Node<T>* ptr ;
+			for( ptr = begin() ; ptr != end() ; ptr = ptr->fptr ){
+				if( ptr->data == no ) return ptr ;
+			}
+			return NULL ;
+		}
+
+		int count( const T& no ) const{
+			Node<T>* ptr ;
+			int c ;
+			for( ptr = begin() ; ptr != end() ; ptr = ptr->fptr ){
+				if( ptr->data == no ) c++ ;	
+			}
+			return c ;
+		}
+
 
 		void clear() {
 			while ( osize ) pop_back() ;
@@ -116,7 +182,6 @@ Node<T>* make_node( const T& no = 0){
 	return ptr ;
 }
 
-
 int main(void){
 	
 	int i ;
@@ -133,6 +198,22 @@ int main(void){
 	for( i = 1 ; i <=3 ; ++i ) foo.pop_front() ;
 	cout << foo << endl ;
 
+	Node<int> *ptr = foo.begin() ;
+	ptr = ptr->fptr ;
+	foo.insert(ptr,10);
+	cout << foo << endl ;
+
+	List<int> bar = foo ;
+	cout << bar << endl ;
+
+	Node<int> *ptr = foo.find(10) ;
+	foo.insert(ptr,20) ;
+	cout << foo << endl ;
+
+/*	foo.pop_back() ;
+	bar = foo ;
+	cout << bar << endl ;
+*/
 	return 0 ;
 
 }
