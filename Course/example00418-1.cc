@@ -16,14 +16,6 @@ struct Node {
 	Node( const T& a ) : data(a) , fptr(NULL) , bptr(NULL) {}
 };
 
-/*
-template<typename T>
-void operator++( Node<T>* ptr ){ ptr = ptr->fptr ;}
-
-
-template<typename T>
-void operator--( Node<T>* ptr ){ ptr = ptr->bptr ;}
-*/
 template<typename T>
 ostream& operator<< ( ostream& out , const Node<T>* foo ){
 	return out << foo->data ;
@@ -40,13 +32,24 @@ class List {
 		//constructor 
 		List() : head(NULL), tail(NULL) , osize(0) {}
 
+		//copy constructor
 		List( const List<T>& foo ): head(NULL),tail(NULL) , osize(0) {
 			const Node<T> *ptr ;
 			for( ptr = foo.begin() ; ptr != foo.end() ; ptr= ptr->fptr )
 				push_back( ptr->data ) ;
 		}
 
-		
+		//assignment 
+		const List<T>& operator=( const List<T>& foo ){
+			if ( this == &foo ) return *this ;
+			clear() ;
+			const Node<T> * ptr ;
+			for ( ptr = foo.begin() ; ptr != foo.end() ;
+					ptr = ptr->fptr){
+					push_back( ptr->data ) ;
+			}
+			return *this ;
+		}		
 
 		const Node<T>* begin() const { return head ;}
 		Node<T>* begin() {return head ;}
@@ -165,6 +168,7 @@ class List {
 		//destructor
 		~List(){ clear() ;}
 
+		//output operator
 		friend ostream& operator<< ( ostream& out , const List<T>& foo ){
 			const Node<T>* ptr ;
 			for( ptr = foo.begin() ; ptr != foo.end() ; ptr = ptr->fptr ){
@@ -180,6 +184,15 @@ template<typename T>
 Node<T>* make_node( const T& no = 0){
 	Node<T> *ptr = new Node<T>(no) ;
 	return ptr ;
+}
+
+template<typename T>
+List<T>& operator+=( List<T>& foo, const List<T>& bar){
+	const Node<T>* ptr ;
+	for( ptr = bar.begin() ; ptr != bar.end() ; ptr = ptr->fptr ){
+		foo.push_back( ptr->data ) ;
+	}
+	return foo ;
 }
 
 int main(void){
@@ -206,14 +219,13 @@ int main(void){
 	List<int> bar = foo ;
 	cout << bar << endl ;
 
-	Node<int> *ptr = foo.find(10) ;
-	foo.insert(ptr,20) ;
-	cout << foo << endl ;
-
-/*	foo.pop_back() ;
+	foo.pop_back() ;
 	bar = foo ;
 	cout << bar << endl ;
-*/
+
+	bar += foo ;
+	cout << bar << endl ;
+
 	return 0 ;
 
 }
