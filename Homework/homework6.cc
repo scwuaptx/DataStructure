@@ -1,7 +1,9 @@
 #include <iostream>
 #include <cassert>
+#include <iomanip>
 using namespace std ;
 
+//define Node struct
 template<typename T>
 struct Node{
 	T data ;
@@ -13,18 +15,34 @@ struct Node{
 	Node(const T& a):data(a),fptr(NULL),bptr(NULL){} 
 };
 
+//Function object
 struct large_first{
 	bool operator()( const int& a, const int& b){
 		return a < b ;
 	}
 } ;
 
+//define the struct of wsetw 
+struct wsetw{
+	ostream *ptr ;
+	int w ;
+	wsetw(int n) : w(n) {} ;
+} ;
+
+//define the output operator of the struct of wsetw 
+wsetw operator<<(ostream& out , wsetw a ){
+	a.ptr = &out ;
+	return a ;
+}
+
+//define the output operator if the struct of Node
 template<typename T>
 ostream& operator<<(ostream& out ,const Node<T>* foo){
 	return out << foo->data ;
 }
 
-template<typename T>
+//define the class of List
+template<typename T,typename UnaryPredicate = large_first >
 class List{
 	private :
 		Node<T> *head ;
@@ -32,14 +50,17 @@ class List{
 		int osize ;
 	public :
 
+		//constructor
 		List():head(NULL), tail(NULL) , osize(0){}
 
+		//copy constructor
 		List( const List<T>& foo ):head(NULL),tail(NULL),osize(0){
 			const Node<T>* ptr ;
 			for(ptr = foo.begin(); ptr != foo.end() ; ptr=ptr->fptr)
 				push_back(ptr->data) ;
 		}
 		
+		//assignment constructor
 		const List<T>& operator=(const List<T>& foo){
 			if(this = &foo ) return *this ;
 			clear() ;
@@ -49,10 +70,12 @@ class List{
 			return *this ;
 		}
 
+		//define the begin() and end()
 		const Node<T>* begin() const { return head ;}
 		Node<T>* begin() {return head ;}
 		Node<T>* end() const {return NULL ;}  	
 
+		//push an element to the end of list;
 		void push_back(const T & no){
 			if( osize == 0 ){
 				head = tail = make_node(no);
@@ -64,6 +87,7 @@ class List{
 			++osize ;
 		}
 
+		//pop an element at the end of the list ;
 		void pop_back(){
 			if( osize == 0 ){
 				return ;
@@ -77,6 +101,7 @@ class List{
 			--osize ;
 		}
 
+		//push an element to the start of the list
 		void push_front(const T& no){
 			if(osize == 0 ){
 				head = tail = make_node(no) ;
@@ -88,6 +113,7 @@ class List{
 			++osize ;
 		}
 
+		//pop an element at the start  of the list 
 		void pop_front(){
 			if(osize == 0)
 				return ;
@@ -101,6 +127,7 @@ class List{
 			--osize ;
 		}
 
+		//insert an element to the list,
 		void insert(Node<T>* cptr ,const T& no){
 			if( osize == 1 ){
 				assert(cptr == head ); 
@@ -118,6 +145,7 @@ class List{
 
 		}
 
+		//remove an element of the list 
 		void erase( Node<T>* cptr){
 			if( osize == 1 ){
 				assert(cptr == head );
@@ -139,6 +167,7 @@ class List{
 
 		}
 
+		//find an element in the list
 		Node<T>* find(const T& no) const{
 			Node<T>* ptr ;
 			for(ptr= begin() ; ptr!= end() ; ptr = ptr->fptr){
@@ -149,6 +178,7 @@ class List{
 
 		}
 
+		//sort the list
 		void sort() {
 			int n , i , j ;
 			Node<T>* walker, *ptr ;
@@ -165,7 +195,8 @@ class List{
 			}
 		}
 
-		void sort(bool pred){	
+		//sort by pred the list 
+		void sort(UnaryPredicate pred){	
 			int n , i , j ;
 			Node<T>* walker, *ptr ;
 			for ( walker = begin() ; walker != end() ; walker = walker->fptr ){
@@ -180,7 +211,8 @@ class List{
 				}
 			}
 		}
-
+	
+	//define output operator of List
 	friend ostream& operator<<(ostream& out , List<T>& foo ){
 			const Node<T>* ptr ;
 			for(ptr = foo.begin(); ptr!= foo.end() ; ptr=ptr->fptr){
@@ -193,29 +225,47 @@ class List{
 		while(osize) pop_back() ;
 	}
 
+	//destructor
 	~List(){ clear() ; } 
 
 
 };
 
+//the function is what create a node
 template<typename T>
 Node<T>* make_node(const T& no = 0){
 	Node<T> *ptr = new Node<T>(no) ;
 	return ptr ;
 }
 
+//wsetw output operator
+template<typename T>
+ostream& operator<<( wsetw a , List<T>& foo ) {
+	Node<T>* ptr ;
+	for ( ptr = foo.begin() ; ptr != foo.end() ; ptr = ptr->fptr ){
+		*(a.ptr) << setw(a.w) << ptr->data ;
+	}
+	return *(a.ptr) ;
+}
+
 int main(void){
 
 	int i ;
 	List<int> foo ;
-	for( i = 10 ; i >= 1 ; --i ) foo.push_back(i) ;	
-	cout << foo << endl ;
-	
-	foo.sort() ;
-	cout << foo << endl ;
 
+	foo.push_back(7) ;
+	foo.push_back(4) ;
+	foo.push_back(2) ;
+	foo.push_back(1) ;
+	foo.push_back(4) ;
+	foo.push_back(8) ;
+	foo.push_back(5) ;
+
+	foo.sort() ;
+	cout << wsetw(4) << foo << endl ;
+ 
 	foo.sort( large_first() ) ;
-	cout << foo << endl ;
+	cout << wsetw(4) << foo << endl ;
 
 	return 0 ;
 }
