@@ -20,7 +20,6 @@ int main(void){
 	ostringstream ostr ;
 	istringstream istr ;
 	char para ;
-	bool flag ;
 	int no , a, b, c;
 	char op ,word;
 
@@ -35,11 +34,17 @@ int main(void){
 			}else{
 				if( word == ')'){
 					if(!nums.empty()){
-						b = nums.top() ;
-						nums.pop() ;
-						a = nums.top() ;
-						nums.pop() ;
-						ostr << a << " " << b  << " " ;
+						if(nums.size() > 1){
+							b = nums.top() ;
+							nums.pop() ;
+							a = nums.top() ;
+							nums.pop() ;
+							ostr << a << " " << b  << " " ;
+						}else{
+							a = nums.top() ;
+							nums.pop() ;
+							ostr << a << " " ;
+						}
 					}
 					op = optrs.top() ;
 					optrs.pop() ;
@@ -55,6 +60,7 @@ int main(void){
 		}
 		istr.clear() ;
 		cout << ostr.str() << endl ;
+		ostr.str("") ;
 	}
 
 
