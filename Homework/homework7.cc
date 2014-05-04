@@ -2,9 +2,12 @@
 #include <stack>
 #include <string>
 #include <sstream>
+#include <cmath>
 using namespace std ;
 
 int GCD( int a , int b ){
+	a = abs(a) ;
+	b = abs(b) ;	
     if( a == 0 )
         return 1 ;
     if( a >= b )
@@ -15,9 +18,10 @@ int GCD( int a , int b ){
 }
 
 struct Fraction{
-        unsigned int num , den ;
-        Fraction( unsigned int n = 0, unsigned int d = 1 ): num(n/GCD(n,d)), den(d/GCD(n,d)) {} ;
-
+        int num , den ;
+        Fraction( int n = 0, int d = 1 ): num(n/GCD(n,d)), den(d/GCD(n,d)) {
+		if( d < 0 ){ num *= -1 ; den *= -1 ;}
+		} ;
 } ;
 
 ostream& operator<< ( ostream& out ,const Fraction& foo ){
