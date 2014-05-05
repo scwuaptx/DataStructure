@@ -5,6 +5,7 @@
 #include <cmath>
 using namespace std ;
 
+//GCD function
 int GCD( int a , int b ){
 	a = abs(a) ;
 	b = abs(b) ;	
@@ -17,6 +18,8 @@ int GCD( int a , int b ){
 
 }
 
+/*--Define Fraction Struct--*/
+//constructor
 struct Fraction{
         int num , den ;
         Fraction( int n = 0, int d = 1 ): num(n/GCD(n,d)), den(d/GCD(n,d)) {
@@ -24,43 +27,49 @@ struct Fraction{
 		} ;
 } ;
 
+//output operator of Fraction
 ostream& operator<< ( ostream& out ,const Fraction& foo ){
     return out << foo.num << '/' << foo.den ;
 }
 
+//+ operator of Fraction
 Fraction operator+ ( const Fraction& a , const Fraction& b ){
     int newden = a.den * b.den ;
     int newnum = a.num * b.den + a.den * b.num ;
     return Fraction(newnum,newden) ;
 }
 
+//- operator of Fraction
 Fraction operator- ( const Fraction& a , const Fraction& b){
     int newden = a.den * b.den ;
     int newnum = a.num * b.den - a.den * b.den ;
     return Fraction( newnum , newden ) ;
 }
 
+//* operator of Fraction
 Fraction operator* ( const Fraction& a , const Fraction& b ){
     return Fraction( a.num * b.num , a.den * b.den ) ;
 }
 
+// / operator of Fraction
 Fraction operator/ ( const Fraction& a , const Fraction& b ){
     return Fraction( a.num * b.den , a.den * b.num ) ;
 }
 
 
-
+/*--Infix to Postfix--*/
 string Infix2Postfix(string& str){
 	
 	string word  ;
-	stack<string> optrs ;
-	stack<int> priority ;
+	stack<string> optrs ; //create a stack to save operator
+	stack<int> priority ; //create a stack to save priority of operator
 	int optrpri ;
 	istringstream istr ;
 	ostringstream ostr ;
 	istr.str(str) ;
 	
 	while( istr >> word ){
+		//determine whether is operator
 		if( word.find_first_of("0123456789") == string::npos ){
 			if( !optrs.empty() ){
 					optrpri = priority.top() ;
@@ -126,9 +135,11 @@ string Infix2Postfix(string& str){
 		priority.pop() ; 
 	}
 	
-	return ostr.str() ;
+	//return the postfix
+	return ostr.str() ; 
 }
 
+//string to number
 template<typename T>
 T Str2Num(string str){
 	stringstream ss ;
@@ -139,6 +150,7 @@ T Str2Num(string str){
 	return k ;
 }
 
+//string to fraction
 Fraction Str2Frac(string& str){
 	int i , a , b;
 	ostringstream ss ;
@@ -156,6 +168,7 @@ Fraction Str2Frac(string& str){
 	return Fraction(a,b) ;
 }
 
+//Calculate the postfix of fraction
 template<typename T>
 T CalPostfix(string str){
 
@@ -166,6 +179,7 @@ T CalPostfix(string str){
 	istr.str(str) ;
 
 	while( istr >> word ){
+		//if word is number then save to stack
 		if( word != "+" && word != "-" && word !="*" && word != "/" ){
 			nums.push(Str2Frac(word)) ;
 		}else{
@@ -187,6 +201,7 @@ T CalPostfix(string str){
 		}
 
 	}
+	//return the result of postfix of fraction
 	return nums.top() ;
 }
 
