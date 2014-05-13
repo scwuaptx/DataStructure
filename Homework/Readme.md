@@ -76,3 +76,49 @@ output :
 	1   1
 	1   2   1
 	1   3   3   1
+
+Homework3
+---------
+
+Reference to the third Problem in http://www.ziyou.math.ncu.edu.tw/~ziyou/c++/
+
+Homework4
+---------
+
+Reference to the fifth Problem in http://www.ziyou.math.ncu.edu.tw/~ziyou/c++/
+
+Homework5
+---------
+There are some code :
+
+	Pascal  foo ;
+	while ( 1 ) {
+	   cin >> n ;
+	   foo.reset(n) ;
+	   cout << foo << endl ;
+	}
+
+Design a class of Pascal to complete the program.
+
+Homework6
+---------
+
+Design a class of List which include sort(Comp cp) such that it can sort element of list.
+
+For example :
+
+	foo.sort() ;  //from small to big
+	cout << wsetw(4) << foo << endl ;  // print the element of list
+	foo.sort( large_first() ) ;  // from big to small
+	cout << wsetw(4) << foo << endl ;
+
+
+Homework7
+---------
+
+Design the function of infix to postfix and calculate the value of formula which is Fraction.
+
+Homework8
+---------
+
+Design a program which simulate the parking lot with two entrances in a day.
