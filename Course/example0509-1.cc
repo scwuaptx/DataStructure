@@ -109,7 +109,7 @@ int main(void){
 	
 	int i ;
 
-	for ( i = 0 ; i <= 5  ; ++i){
+	for ( i = 1 ; i <= 5  ; ++i){
 		cout << Snowflake(Point(2*i,1)).create(i) << endl ;
 		cout << endl ;
 	}
