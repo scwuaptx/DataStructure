@@ -1,3 +1,13 @@
+/*
+學號 : 992001525
+系級 : 數4B
+姓名 : 楊安傑
+第_次作業 : 9
+編譯環境 : g++ on ubuntu 12.04 LTS
+聯絡信箱 : scwuaptx@gmail.com
+*/
+
+
 #include <iostream>
 #include <fstream>
 #include <cmath>
@@ -116,12 +126,12 @@ ostream& operator<< ( ostream& out , const vector<Point>& foo){
 
 int main(void){
 	
-	int i , j , k, n = 4 ;
+	int i , j , k, n = 3 ;
 	double len = 2.5 ;
 
 	//print the Snowflake 
-	for( i = 0 ; i < 7 ; ++i ){
-		for( j = 0 ; j < 7  ; ++j ){
+	for( i = 0 ; i < 2*(n-1) + 1 ; ++i ){
+		for( j = 0 ; j < 2*(n-1) + 1  ; ++j ){
 			k = max( abs(n-i-1), abs(n-j-1)) ;
 			cout << Snowflake(Point(len*(j-n+1),len*(n-1-i))).create(k+1) << endl ;
 			cout << endl ;
