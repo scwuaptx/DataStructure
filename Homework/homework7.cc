@@ -42,7 +42,7 @@ Fraction operator+ ( const Fraction& a , const Fraction& b ){
 //- operator of Fraction
 Fraction operator- ( const Fraction& a , const Fraction& b){
     int newden = a.den * b.den ;
-    int newnum = a.num * b.den - a.den * b.den ;
+    int newnum = a.num * b.den - a.den * b.num ;
     return Fraction( newnum , newden ) ;
 }
 
@@ -154,17 +154,21 @@ T Str2Num(string str){
 Fraction Str2Frac(string& str){
 	int i , a , b;
 	ostringstream ss ;
-	for(i = 0 ; str[i] != '/' ; ++i ){
-		ss << str[i] ;
-	}
-	++i ;
-	a = Str2Num<int>(ss.str()) ;
-	ss.str("") ;
-	for(; str[i] != '\0' ; ++i){
-		ss << str[i] ;
-	}
-	b = Str2Num<int>(ss.str()) ;
-		
+	if(str.find_first_of("/") == string::npos){
+		a = Str2Num<int>(str) ;
+		b = 1 ;
+	}else{
+		for(i = 0 ; str[i] != '/' ; ++i ){
+			ss << str[i] ;
+		}
+		++i ;
+		a = Str2Num<int>(ss.str()) ;
+		ss.str("") ;
+		for(; str[i] != '\0' ; ++i){
+			ss << str[i] ;
+		}
+		b = Str2Num<int>(ss.str()) ;
+	}	
 	return Fraction(a,b) ;
 }
 
