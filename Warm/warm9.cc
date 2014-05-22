@@ -2,6 +2,7 @@
 #include <vector>
 #include <sstream>
 #include <cmath>
+#include <algorithm>
 
 using namespace std ;
 
@@ -23,7 +24,7 @@ class Complete_Binary_Tree {
 		} 
 
 		int depth ( int i ) const {
-			return static_cast<int>(log(int+1)/log(2)+SMALL) ;
+			return static_cast<int>(log(i+1)/log(2)+SMALL) ;
 		}
 
 		bool is_leaf_node( int i ) const {
@@ -74,8 +75,14 @@ class Complete_Binary_Tree {
 				return Complete_Binary_Tree(num) ;
 			}
 
+			string print_subtree_sum( int i = 0 ) const {
+				ostringstream ostr ;
+				print_subtree_sum(i,ostr) ;
+				return ostr.str() ;
+			}
+
 			void swap_nodes( int i = 0 ){
-				if ( tree_noses(i) ){
+				if ( tree_node(i) ){
 					if (tree_node(rightson(i))){
 						swap(foo[leftson(i)],foo[rightson(i)]) ;
 					}
@@ -105,7 +112,7 @@ class Complete_Binary_Tree {
 			}
 
 			T odd_sum( int i = 0 ) const {
-				if ( ! tree_node(i) ) const {
+				if ( ! tree_node(i) )  {
 					return  T(0) ;
 				}else{
 					if ( foo[i] % 2 )
@@ -127,4 +134,59 @@ class Complete_Binary_Tree {
 				}
 			}
 
+			T rightson_sum ( int i = 0 ) const {
+				if( ! tree_node(i) ){
+					return T(0) ;
+				}else{
+					if( i > 0 && rightson(parent(i)) == i ){
+						return foo[i] + rightson_sum(rightson(i)) + rightson_sum(leftson(i)) ;
+					}else{
+						return rightson_sum(rightson(i)) + rightson_sum(leftson(i)) ;
+					}
+				}
+			}
+
+			void parentbig( int i = 0 ){
+				if(tree_node(i) && i > 0 ){
+					if(foo[parent(i)] < foo[i]){
+						swap(foo[parent(i)],foo[i]) ;
+					}
+					parentbig(parent(i)) ;
+				}
+
+
+			}
+
+			void rearrange( int i = 0 ){
+				if(tree_node(i)){
+					for( int j = i+1  ; j <= foo.size() - i ; j++ ){
+						parentbig(j) ;
+					}
+				}
+			}
+
+			int size() const { return foo.size() ; } 
+
+			template <class S>
+			friend ostream& operator<< ( ostream& out , const Complete_Binary_Tree<S>& foo ){
+				foo.print_tree(0,out) ;
+				return out ;
+			}
+
 } ;
+
+int main(void){
+
+	const int s = 10 ;
+	int no[s] = { 2 , 3, 1 ,8 , 7 , 4 , 9 , 6 , 5 , 3 } ; 
+
+	Complete_Binary_Tree<int> cbtree( no , s ) ;
+
+	cout << "The tree : \n" << cbtree << endl ;
+
+	cbtree.rearrange() ;
+	
+	cout << "Rearrange：\n" << cbtree << endl ;
+
+	return 0 ;
+}
