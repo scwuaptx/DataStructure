@@ -34,8 +34,8 @@ class Complete_Binary_Tree {
 		void print_tree( int i , ostream& out ) const {
 			if ( tree_node(i) ) {
 				print_tree(rightson(i),out) ;
-				for ( int j = 0 ; j < depth(i)-1 ; j++ ) out << "|" ;
-				out << ( i > 0 ? "+--->" : "" ) << foo[i] << endl ; 
+				for ( int j = 0 ; j < depth(i)-1 ; j++ ) out << "|       " ;
+				out << ( i > 0 ? "+--->   " : "" ) << foo[i] << endl ; 
 				print_tree(leftson(i),out) ;
 			}
 
