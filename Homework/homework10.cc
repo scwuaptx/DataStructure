@@ -60,7 +60,7 @@ class Complete_Binary_Tree {
 			T maximum(int i = 0){
 				if(tree_node(i)){
 					if(!is_leaf_node(leftson(i)))
-						return max(maximum(rightson(i)),maximum(leftson(i))) ;
+						return max(max(maximum(rightson(i)),maximum(leftson(i))),foo[i]) ;
 					else if(!tree_node(rightson(i)))
 						return foo[leftson(i)] ;
 					else
@@ -96,7 +96,7 @@ class Complete_Binary_Tree {
 int main(void){
 
 	const int s = 10 ;
-	int no[s] = { 2 , 3, 1 ,8 , 7 , 4 , 9 , 6 , 5 , 3 } ; 
+	int no[s] = { 2 ,3, 1 ,8  , 7  ,4 , 9 , 6 , 5 , 3 } ; 
 
 	Complete_Binary_Tree<int> cbtree( no , s ) ;
 
