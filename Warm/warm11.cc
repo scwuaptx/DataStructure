@@ -101,8 +101,8 @@ class  Chained_Hash {
 
     // 列印 hash_table
     friend ostream&  operator<<( ostream& out , const Chained_Hash& foo ) {
-		vector< list<int> >::const_iterator iter1 ;
-		list<int>::const_iterator iter2 ;
+		typename vector< list<T> >::const_iterator iter1 ;
+		typename list<T>::const_iterator iter2 ;
 		int i ;        
 
 		for ( iter1 = foo.ptrs.begin() ; iter1 != foo.ptrs.end() ; ++iter1 ) {
